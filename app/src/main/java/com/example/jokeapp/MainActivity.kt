@@ -1,10 +1,10 @@
 package com.example.jokeapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,9 +14,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewModel = (application as JokeApp).viewModel
-        val button = findViewById<Button>(R.id.actionButton)
+        val button = findViewById<Button>(R.id.btn)
         val progressBar = findViewById<View>(R.id.pb)
-        val textView = findViewById<TextView>(R.id.tv_joke)
+        val textView = findViewById<TextView>(R.id.tv)
         progressBar.visibility = View.INVISIBLE
 
         button.setOnClickListener {
@@ -25,9 +25,20 @@ class MainActivity : AppCompatActivity() {
             viewModel.getJoke()
         }
 
-        viewModel.init(object : TextCallBack{
+        viewModel.init(object : TextCallBack {
+            override fun provideText(text: String) {
+                button.isEnabled = true
+                progressBar.visibility = View.INVISIBLE
+                textView.text = text
+            }
 
         })
 
     }
+
+    override fun onDestroy() {
+        viewModel.clear()
+        super.onDestroy()
+    }
 }
+
