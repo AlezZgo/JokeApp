@@ -1,10 +1,14 @@
-package com.example.jokeapp
+package com.example.jokeapp.ui
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.jokeapp.JokeApp
+import com.example.jokeapp.R
+import com.example.jokeapp.TextCallBack
+import com.example.jokeapp.ViewModel
 
 class MainActivity : AppCompatActivity() {
 
