@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.init(object : TextCallBack {
-            override fun provideText(text: String) {
+            override fun provideText(text: String) = runOnUiThread{
                 button.isEnabled = true
                 progressBar.visibility = View.INVISIBLE
                 textView.text = text
