@@ -5,6 +5,8 @@ import com.example.jokeapp.Errors.NoConnection
 import com.example.jokeapp.Errors.ServiceUnavailable
 import com.example.jokeapp.JokeService
 import com.example.jokeapp.ServiceCallback
+import com.example.jokeapp.data.JokeDto
+import com.example.jokeapp.data.JokeMapper
 import com.example.jokeapp.resources.ResourceManager
 
 class BaseModel(
@@ -18,8 +20,8 @@ class BaseModel(
 
     override fun getJoke() {
         service.getJoke(object : ServiceCallback{
-            override fun returnSuccess(data: String) {
-                callBack?.provideSuccess(Joke(data,""))
+            override fun returnSuccess(dto: JokeDto) {
+                callBack?.provideSuccess(JokeMapper.mapDtoToEntity(dto))
             }
 
             override fun returnError(type: ErrorType) {
