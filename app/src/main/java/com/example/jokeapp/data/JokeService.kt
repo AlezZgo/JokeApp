@@ -1,20 +1,16 @@
 package com.example.jokeapp
 
 import com.example.jokeapp.data.JokeDto
+import retrofit2.Call
+import retrofit2.http.GET
 
 interface JokeService {
 
-    fun getJoke(callBack: ServiceCallback)
+    @GET(JOKE_URL)
+    fun getJoke() : Call<JokeDto>
+
+    private companion object{
+        const val JOKE_URL = "https://v2.jokeapi.dev/joke/Any?format=json"
+    }
 }
 
-interface ServiceCallback {
-    fun returnSuccess(dto: JokeDto)
-
-    fun returnError(type : ErrorType)
-
-}
-
-enum class ErrorType {
-    NO_CONNECTION,
-    OTHER
-}
