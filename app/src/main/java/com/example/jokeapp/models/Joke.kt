@@ -1,6 +1,17 @@
 package com.example.jokeapp.models
 
-class Joke(private val text: String, private val punchline: String) {
+import androidx.annotation.DrawableRes
 
-    fun getJokeUi() = "$text\n$punchline"
+abstract class Joke(private val text: String, private val punchline: String) {
+
+    protected fun getJokeUi() = "$text\n$punchline"
+
+    @DrawableRes
+    protected abstract fun getIconResId() : Int
+
+    fun map(callBack: DataCallBack) = callBack.run {
+        provideText(getJokeUi())
+        provideIconRes(getIconResId())
+    }
+
 }

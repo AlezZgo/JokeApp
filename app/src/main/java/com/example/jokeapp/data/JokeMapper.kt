@@ -1,16 +1,17 @@
 package com.example.jokeapp.data
 
+import com.example.jokeapp.models.BaseJoke
 import com.example.jokeapp.models.Joke
 
 object JokeMapper {
 
-    fun mapDtoToEntity(dto: JokeDto): Joke {
+    fun mapDtoToEntity(dto: JokeDto): BaseJoke {
 
         return if(dto.joke==null){
-            Joke(dto.setup ?: throw RuntimeException("dto setup param is null"),
+            BaseJoke(dto.setup ?: throw RuntimeException("dto setup param is null"),
                 dto.delivery ?: throw RuntimeException("dto delivery param is null "))
         }else{
-            Joke(dto.joke,"")
+            BaseJoke(dto.joke,"")
         }
 
 

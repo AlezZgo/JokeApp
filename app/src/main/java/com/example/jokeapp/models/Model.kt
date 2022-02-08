@@ -1,5 +1,6 @@
 package com.example.jokeapp.models
 
+import androidx.annotation.DrawableRes
 import com.example.jokeapp.Errors.JokeFailure
 
 interface Model {
@@ -14,9 +15,16 @@ interface Model {
 
 interface ResultCallBack {
 
-    fun provideSuccess(data: Joke)
+    fun provide(joke: Joke)
 
-    fun provideError(error: JokeFailure)
+}
+
+interface DataCallBack{
+
+    fun provideText(text: String)
+
+    fun provideIconRes(@DrawableRes id:Int)
+
 }
 
 

@@ -1,6 +1,7 @@
 package com.example.jokeapp
 
 import com.example.jokeapp.Errors.JokeFailure
+import com.example.jokeapp.models.DataCallBack
 import com.example.jokeapp.models.Joke
 import com.example.jokeapp.models.Model
 import com.example.jokeapp.models.ResultCallBack
@@ -8,19 +9,18 @@ import com.example.jokeapp.models.ResultCallBack
 
 class ViewModel(private val model: Model) {
 
-    private var callback: TextCallBack? = null
+    private var dataCallback: DataCallBack? = null
 
-    fun init(callBack: TextCallBack){
-        this.callback = callBack
+    fun init(callBack: DataCallBack){
+        dataCallback = callBack
 
         model.init(object : ResultCallBack {
-            override fun provideSuccess(data: Joke) {
-                callBack.provideText(data.getJokeUi())
+            override fun provide(joke: Joke) {
+                dataCallback?.let {
+                    joke.map(it)
+                }
             }
 
-            override fun provideError(error: JokeFailure) {
-                callBack.provideText(error.getMessage())
-            }
         })
     }
 
@@ -29,8 +29,12 @@ class ViewModel(private val model: Model) {
     }
 
     fun clear(){
-        callback = null
+        dataCallback = null
         model.clear()
+    }
+
+    fun chooseFavourites(favourites: Boolean) {
+
     }
 
 }

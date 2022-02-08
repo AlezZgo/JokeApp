@@ -3,12 +3,14 @@ package com.example.jokeapp.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.jokeapp.JokeApp
 import com.example.jokeapp.R
-import com.example.jokeapp.TextCallBack
 import com.example.jokeapp.ViewModel
+import com.example.jokeapp.models.DataCallBack
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.btn)
         val progressBar = findViewById<View>(R.id.pb)
         val textView = findViewById<TextView>(R.id.tv)
+        val iconView = findViewById<ImageView>(R.id.imageView)
         progressBar.visibility = View.INVISIBLE
 
         button.setOnClickListener {
@@ -29,14 +32,27 @@ class MainActivity : AppCompatActivity() {
             viewModel.getJoke()
         }
 
-        viewModel.init(object : TextCallBack {
+        viewModel.init(object : DataCallBack {
             override fun provideText(text: String) = runOnUiThread{
                 button.isEnabled = true
                 progressBar.visibility = View.INVISIBLE
                 textView.text = text
             }
 
+            override fun provideIconRes(id: Int) {
+                runOnUiThread {
+                    iconView.setImageResource(id)
+                }
+            }
+
         })
+
+        val checkBox = findViewById<CheckBox>(R.id.checkBox)
+        checkBox.setOnCheckedChangeListener{ _, isChecked ->
+            viewModel.chooseFavourites(isChecked)
+        }
+
+
 
     }
 
