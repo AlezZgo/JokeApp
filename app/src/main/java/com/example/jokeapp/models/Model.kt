@@ -2,14 +2,17 @@ package com.example.jokeapp.models
 
 import androidx.annotation.DrawableRes
 import com.example.jokeapp.Errors.JokeFailure
+import com.example.jokeapp.JokeCallback
 
 interface Model {
 
     fun getJoke()
 
-    fun init(callBack: ResultCallBack)
+    fun init(callBack: JokeCallback)
 
     fun clear()
+
+    fun changeJokeStatus(jokeCallBack: JokeCallback)
 
 }
 

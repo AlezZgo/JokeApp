@@ -2,6 +2,7 @@ package com.example.jokeapp.models
 
 import com.example.jokeapp.Errors.NoConnection
 import com.example.jokeapp.Errors.ServiceUnavailable
+import com.example.jokeapp.JokeCallback
 import com.example.jokeapp.resources.ResourceManager
 
 class TestModel(resManager : ResourceManager) : Model {
@@ -26,7 +27,7 @@ class TestModel(resManager : ResourceManager) : Model {
         if (count == 3) count = 0
     }.start()
 
-    override fun init(callBack: ResultCallBack) {
+    override fun init(callBack: JokeCallback) {
         this.callBack = callBack
     }
 

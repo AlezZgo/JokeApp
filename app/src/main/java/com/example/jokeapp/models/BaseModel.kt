@@ -1,50 +1,46 @@
 package com.example.jokeapp.models
 
-//import com.example.jokeapp.Errors.NoConnection
-//import com.example.jokeapp.Errors.ServiceUnavailable
-//import com.example.jokeapp.JokeService
-//import com.example.jokeapp.data.JokeDto
-//import com.example.jokeapp.data.JokeMapper
-//import com.example.jokeapp.resources.ResourceManager
-//import retrofit2.Call
-//import retrofit2.Response
-//import java.net.UnknownHostException
-//
-//class BaseModel(
-//    private val service: JokeService,
-//    private val resourceManager: ResourceManager,
-//) : Model {
-//
-//    private var callBack: ResultCallBack? = null
-//    private val noConnection by lazy { NoConnection(resourceManager) }
-//    private val serviceUnavailable by lazy { ServiceUnavailable(resourceManager) }
-//
-//    override fun getJoke() {
-//        service.getJoke().enqueue(object : retrofit2.Callback<JokeDto> {
-//            override fun onResponse(call: Call<JokeDto>, response: Response<JokeDto>) {
-//                if (response.isSuccessful) {
-//                    callBack?.provideSuccess(JokeMapper.mapDtoToEntity(response.body()!!))
-//                } else {
-//                    callBack?.provideError(serviceUnavailable)
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<JokeDto>, t: Throwable) {
-//                if (t is UnknownHostException)
-//                    callBack?.provideError(noConnection)
-//                else
-//                    callBack?.provideError(serviceUnavailable)
-//            }
-//
-//
-//        })
-//    }
-//
-//    override fun init(callBack: ResultCallBack) {
-//        this.callBack = callBack
-//    }
-//
-//    override fun clear() {
-//        callBack = null
-//    }
-//}
+import com.example.jokeapp.Errors.NoConnection
+import com.example.jokeapp.Errors.ServiceUnavailable
+import com.example.jokeapp.JokeCallback
+import com.example.jokeapp.data.*
+import com.example.jokeapp.resources.ResourceManager
+
+class BaseModel(
+    private val cacheDataSource: CacheDataSource,
+    private val cloudDataSource: CloudDataSource,
+    private val resourceManager: ResourceManager
+) : Model {
+
+    private val noConnection by lazy { NoConnection(resourceManager) }
+    private val serviceUnavailable by lazy { ServiceUnavailable(resourceManager) }
+
+    private var jokeCallback: JokeCallback? = null
+    private var cachedJokeServerModel: JokeServerModel? = null
+
+    override fun getJoke(){
+        cloudDataSource.getJoke(object : JokeCloudCallback{
+            override fun provide(joke: JokeServerModel) {
+                cachedJokeServerModel = joke
+                jokeCallback?.provide(joke.toBaseJoke())
+            }
+
+            override fun fail(error: ErrorType) {
+                cachedJokeServerModel = null
+                val failure = if(error == ErrorType.NO_CONNECTION) noConnection else serviceUnavailable
+                jokeCallback?.provide(FailedJoke(failure.getMessage()))
+            }
+
+        })
+    }
+
+    override fun init(callBack: JokeCallback) {
+        this.jokeCallback = callBack
+    }
+
+    override fun clear() {
+        jokeCallback = null
+    }
+
+
+}

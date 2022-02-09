@@ -2,7 +2,7 @@ package com.example.jokeapp.data
 
 import com.google.gson.annotations.SerializedName
 
-data class JokeDto (
+data class JokeServerModel (
     @SerializedName("error") val error : Boolean,
     @SerializedName("category") val category : String,
     @SerializedName("type") val type : String,
@@ -13,4 +13,6 @@ data class JokeDto (
     @SerializedName("id") val id : Int,
     @SerializedName("safe") val safe : Boolean,
     @SerializedName("lang") val lang : String
-)
+){
+    fun change(cacheDataSource: CacheDataSource) = cacheDataSource.addOrRemove(id,this)
+}

@@ -1,27 +1,32 @@
 package com.example.jokeapp
 
-import com.example.jokeapp.Errors.JokeFailure
 import com.example.jokeapp.models.DataCallBack
 import com.example.jokeapp.models.Joke
 import com.example.jokeapp.models.Model
-import com.example.jokeapp.models.ResultCallBack
 
 
 class ViewModel(private val model: Model) {
 
     private var dataCallback: DataCallBack? = null
 
+    private val jokeCallBack = object : JokeCallback{
+        override fun provide(joke: Joke){
+            dataCallback.let{
+                joke.map(it)
+            }
+        }
+    }
+
     fun init(callBack: DataCallBack){
         dataCallback = callBack
 
-        model.init(object : ResultCallBack {
-            override fun provide(joke: Joke) {
-                dataCallback?.let {
-                    joke.map(it)
-                }
-            }
+        model.init(jokeCallBack)
+    }
 
-        })
+    fun changeJokeStatus(jokeCallback: JokeCallback){
+        cachedJokeServerModel?.change(cacheDataSource)?.let{
+            jokeCallback.provide(it)
+        }
     }
 
     fun getJoke(){

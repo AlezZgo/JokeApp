@@ -2,10 +2,7 @@ package com.example.jokeapp.ui
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.jokeapp.JokeApp
 import com.example.jokeapp.R
@@ -23,13 +20,17 @@ class MainActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.btn)
         val progressBar = findViewById<View>(R.id.pb)
         val textView = findViewById<TextView>(R.id.tv)
-        val iconView = findViewById<ImageView>(R.id.imageView)
+        val changeButton = findViewById<ImageButton>(R.id.changeButton)
         progressBar.visibility = View.INVISIBLE
 
         button.setOnClickListener {
             button.isEnabled = false
             progressBar.visibility = View.VISIBLE
             viewModel.getJoke()
+        }
+
+        changeButton.setOnClickListener {
+            viewModel.changeJokeStatus()
         }
 
         viewModel.init(object : DataCallBack {
