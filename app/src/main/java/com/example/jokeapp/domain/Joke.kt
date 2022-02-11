@@ -1,6 +1,7 @@
-package com.example.jokeapp.models
+package com.example.jokeapp.domain
 
 import androidx.annotation.DrawableRes
+import com.example.jokeapp.models.DataCallBack
 
 abstract class Joke(private val text: String, private val punchline: String) {
 

@@ -1,7 +1,5 @@
 package com.example.jokeapp.domain
 
-import com.example.jokeapp.models.Joke
-
 interface JokeInteractor {
 
     suspend fun getJoke(): Joke

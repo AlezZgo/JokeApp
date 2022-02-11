@@ -1,7 +1,7 @@
 package com.example.jokeapp
 
 import com.example.jokeapp.models.DataCallBack
-import com.example.jokeapp.models.Joke
+import com.example.jokeapp.domain.Joke
 import com.example.jokeapp.models.Model
 
 

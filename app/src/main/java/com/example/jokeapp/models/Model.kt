@@ -2,6 +2,7 @@ package com.example.jokeapp.models
 
 import androidx.annotation.DrawableRes
 import com.example.jokeapp.JokeCallback
+import com.example.jokeapp.domain.Joke
 
 interface Model {
 
