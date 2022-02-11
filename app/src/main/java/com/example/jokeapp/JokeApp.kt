@@ -2,7 +2,7 @@ package com.example.jokeapp
 
 import android.app.Application
 import com.example.jokeapp.models.TestModel
-import com.example.jokeapp.resources.BaseResourceManager
+import com.example.jokeapp.core.resources.BaseResourceManager
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

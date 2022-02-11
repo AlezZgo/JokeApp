@@ -21,4 +21,5 @@ data class JokeServerModel(
     override fun to(): JokeDataModel {
         TODO("Not yet implemented")
     }
+
 }

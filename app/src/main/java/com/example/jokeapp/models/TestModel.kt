@@ -1,9 +1,9 @@
 package com.example.jokeapp.models
 
-import com.example.jokeapp.Errors.NoConnection
-import com.example.jokeapp.Errors.ServiceUnavailable
+import com.example.jokeapp.domain.Errors.NoConnection
+import com.example.jokeapp.domain.Errors.ServiceUnavailable
 import com.example.jokeapp.JokeCallback
-import com.example.jokeapp.resources.ResourceManager
+import com.example.jokeapp.core.resources.ResourceManager
 
 class TestModel(resManager : ResourceManager) : Model {
 
