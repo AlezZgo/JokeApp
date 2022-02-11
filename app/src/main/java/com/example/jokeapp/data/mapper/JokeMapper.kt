@@ -1,5 +1,6 @@
-package com.example.jokeapp.data
+package com.example.jokeapp.data.mapper
 
+import com.example.jokeapp.data.cloud.JokeServerModel
 import com.example.jokeapp.models.BaseJoke
 
 object JokeMapper {

@@ -4,6 +4,11 @@ import com.example.jokeapp.Errors.NoConnection
 import com.example.jokeapp.Errors.ServiceUnavailable
 import com.example.jokeapp.JokeCallback
 import com.example.jokeapp.data.*
+import com.example.jokeapp.data.cache.CacheDataSource
+import com.example.jokeapp.data.cloud.CloudDataSource
+import com.example.jokeapp.data.cloud.ErrorType
+import com.example.jokeapp.data.cloud.JokeCloudCallback
+import com.example.jokeapp.data.cloud.JokeServerModel
 import com.example.jokeapp.resources.ResourceManager
 
 class BaseModel(
@@ -19,7 +24,7 @@ class BaseModel(
     private var cachedJokeServerModel: JokeServerModel? = null
 
     override fun getJoke(){
-        cloudDataSource.getJoke(object : JokeCloudCallback{
+        cloudDataSource.getJoke(object : JokeCloudCallback {
             override fun provide(joke: JokeServerModel) {
                 cachedJokeServerModel = joke
                 jokeCallback?.provide(joke.toBaseJoke())

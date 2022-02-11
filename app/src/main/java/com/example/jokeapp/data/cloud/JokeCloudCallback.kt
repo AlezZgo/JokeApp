@@ -1,4 +1,4 @@
-package com.example.jokeapp.data
+package com.example.jokeapp.data.cloud
 
 interface JokeCloudCallback {
 

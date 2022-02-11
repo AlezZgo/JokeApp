@@ -1,6 +1,5 @@
-package com.example.jokeapp
+package com.example.jokeapp.data.cloud
 
-import com.example.jokeapp.data.JokeServerModel
 import retrofit2.Call
 import retrofit2.http.GET
 

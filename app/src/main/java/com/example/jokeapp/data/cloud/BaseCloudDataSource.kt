@@ -1,6 +1,5 @@
-package com.example.jokeapp.data
+package com.example.jokeapp.data.cloud
 
-import com.example.jokeapp.JokeService
 import retrofit2.Call
 import retrofit2.Response
 import java.net.UnknownHostException
