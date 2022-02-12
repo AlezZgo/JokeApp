@@ -1,7 +1,8 @@
 package com.example.jokeapp.domain.Errors
 
-class GenericError : BaseJokeFailure() {
-    override fun getMessage(): String {
-        TODO("Not yet implemented")
-    }
+import com.example.jokeapp.R
+import com.example.jokeapp.core.resources.ResourceManager
+
+class GenericError(resourceManager : ResourceManager) : BaseJokeFailure(resourceManager) {
+    override fun getMessageResId() = R.string.generic_fail_message
 }

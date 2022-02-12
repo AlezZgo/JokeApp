@@ -2,4 +2,6 @@
     <string name="app_name">JokeApp</string>
     <string name="no_conn">No Connection</string>
     <string name="service_unavailable">Service unavailable</string>
+    <string name="no_cached_jokes">no cached jokes</string>
+    <string name="generic_fail_message">generic fail</string>
 </resources>

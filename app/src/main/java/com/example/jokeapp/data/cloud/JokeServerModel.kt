@@ -9,14 +9,14 @@ data class JokeServerModel(
     @SerializedName("category") val category: String,
     @SerializedName("type") val type: String,
     @SerializedName("joke") val joke: String?,
-    @SerializedName("setup") val setup: String,
-    @SerializedName("delivery") val delivery: String,
+    @SerializedName("setup") val text: String?,
+    @SerializedName("delivery") val punchline: String?,
     @SerializedName("flags") val flags: Flags,
     @SerializedName("id") val id: Int,
     @SerializedName("safe") val safe: Boolean,
     @SerializedName("lang") val lang: String,
 ) : Mapper<JokeDataModel> {
 
-    override fun to() =  JokeDataModel(id,setup,delivery)
+    override fun to() =  JokeDataModel(id,text?:"another json",punchline?:"another json")
 
 }

@@ -1,11 +1,30 @@
 package com.example.jokeapp.domain
 
-class BaseJokeInteractor : JokeInteractor {
+import com.example.jokeapp.data.mapper.JokeDataModelMapper
+import java.lang.Exception
+
+class BaseJokeInteractor(
+    private val repository: JokeRepository,
+    private val jokeFailureHandler: JokeFailureHandler,
+    private val mapper: JokeDataModelMapper<Joke.Success>
+) : JokeInteractor {
     override suspend fun getJoke(): Joke {
-        TODO("Not yet implemented")
+        return try{
+            repository.getJoke().map(mapper)
+        }catch (e: Exception){
+            Joke.Failed(jokeFailureHandler.handle(e))
+        }
     }
 
     override suspend fun changeFavourites(): Joke {
-        TODO("Not yet implemented")
+        return try {
+            repository.changeJokeStatus().map(mapper)
+        }catch (e: Exception){
+            Joke.Failed(jokeFailureHandler.handle(e))
+        }
     }
+
+    override fun getFavouriteJokes(favourites: Boolean)
+        = repository.chooseDataSource(favourites)
+
 }

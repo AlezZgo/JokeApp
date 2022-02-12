@@ -1,5 +1,11 @@
 package com.example.jokeapp.domain.Errors
 
-abstract class BaseJokeFailure : JokeFailure {
+import com.example.jokeapp.core.resources.ResourceManager
+
+abstract class BaseJokeFailure(private val resourceManager: ResourceManager) : JokeFailure {
+    @StringRes
+    protected abstract fun getMessageResId(): Int
+
+    override fun getMessage() = resourceManager.getString(getMessageResId())
 
 }
