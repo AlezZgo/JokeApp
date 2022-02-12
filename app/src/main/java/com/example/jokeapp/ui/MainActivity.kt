@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.init(object : DataCallBack {
-            override fun provideText(text: String) = runOnUiThread{
+            override fun provideText(text: String) = runOnUiThread {
                 button.isEnabled = true
                 progressBar.visibility = View.INVISIBLE
                 textView.text = text
@@ -49,10 +49,9 @@ class MainActivity : AppCompatActivity() {
         })
 
         val checkBox = findViewById<CheckBox>(R.id.checkBox)
-        checkBox.setOnCheckedChangeListener{ _, isChecked ->
+        checkBox.setOnCheckedChangeListener { _, isChecked ->
             viewModel.chooseFavourites(isChecked)
         }
-
 
 
     }

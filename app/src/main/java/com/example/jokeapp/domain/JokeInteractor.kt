@@ -4,5 +4,5 @@ interface JokeInteractor {
 
     suspend fun getJoke(): Joke
 
-    suspend fun changeFavourites() : Joke
+    suspend fun changeFavourites(): Joke
 }
