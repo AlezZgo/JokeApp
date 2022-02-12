@@ -1,4 +1,4 @@
 package com.example.jokeapp.ui.models
 
-class BaseJokeUIModel {
+class BaseJokeUIModel : JokeUIModel() {
 }

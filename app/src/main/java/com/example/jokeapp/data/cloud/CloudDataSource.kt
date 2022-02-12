@@ -1,6 +1,5 @@
 package com.example.jokeapp.data.cloud
 
-interface CloudDataSource {
+import com.example.jokeapp.data.JokeDataFetcher
 
-    fun getJoke(callback: JokeCloudCallback)
-}
+interface CloudDataSource : JokeDataFetcher

@@ -7,8 +7,6 @@ interface JokeCloudCallback {
 }
 
 enum class ErrorType {
-
     NO_CONNECTION,
     SERVICE_UNAVAILABLE
-
 }

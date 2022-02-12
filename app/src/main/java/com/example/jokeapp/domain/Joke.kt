@@ -1,18 +1,35 @@
 package com.example.jokeapp.domain
 
-import androidx.annotation.DrawableRes
-import com.example.jokeapp.models.DataCallBack
+import com.example.jokeapp.core.Mapper
+import com.example.jokeapp.domain.Errors.JokeFailure
+import com.example.jokeapp.ui.models.BaseJokeUIModel
+import com.example.jokeapp.ui.models.FailedJokeUIModel
+import com.example.jokeapp.ui.models.FavouriteJokeUIModel
+import com.example.jokeapp.ui.models.JokeUIModel
 
-abstract class Joke(private val text: String, private val punchline: String) {
 
-    protected fun getJokeUi() = "$text\n$punchline"
+sealed class Joke : Mapper<JokeUIModel> {
 
-    @DrawableRes
-    protected abstract fun getIconResId(): Int
-
-    fun map(callBack: DataCallBack?) = callBack.run {
-        provideText(getJokeUi())
-        provideIconRes(getIconResId())
+    class Success(
+        private val text: String,
+        private val punchline: String,
+        private val favourite: Boolean
+    ) : Joke(){
+        override fun to(): JokeUIModel {
+            return if(favourite){
+                FavouriteJokeUIModel(text,punchline)
+            }else{
+                BaseJokeUIModel(text,punchline)
+            }
+        }
     }
+
+    class Failed(private val failure: JokeFailure) : Joke(){
+        override fun to(): JokeUIModel {
+            return FailedJokeUIModel(failure.getMessage())
+        }
+
+    }
+
 
 }
