@@ -1,56 +1,34 @@
 package com.example.jokeapp.ui
 
-import com.example.jokeapp.JokeCallback
+import android.icu.lang.UCharacter.DecompositionType.INITIAL
 import com.example.jokeapp.ViewModel
-import com.example.jokeapp.domain.Joke
 import com.example.jokeapp.domain.JokeInteractor
-import com.example.jokeapp.models.DataCallBack
-import com.example.jokeapp.ui.models.BaseCommunication
 import com.example.jokeapp.ui.models.Communication
+import com.example.jokeapp.ui.state.State
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import okhttp3.Dispatcher
+import java.util.*
 
 class BaseViewModel(
     private val interactor: JokeInteractor,
     private val communication: Communication,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Main,
 ) : ViewModel {
 
-
-    private var dataCallback: DataCallBack? = null
-
-    private val jokeCallBack = object : JokeCallback {
-        override fun provide(joke: Joke) {
-            dataCallback.let {
-                joke.map(it)
-            }
-        }
-    }
-
-    fun init(callBack: DataCallBack) {
-        dataCallback = callBack
-
-        model.init(jokeCallBack)
-    }
-
-    fun changeJokeStatus(jokeCallback: JokeCallback) {
-        cachedJokeServerModel?.change(cacheDataSource)?.let {
-            jokeCallback.provide(it)
-        }
-    }
-
     fun getJoke() {
-        model.getJoke()
+        communication.showState(State.Progress)
+        interactor.getJoke().to().show(communication)
     }
 
-    fun clear() {
-        dataCallback = null
-        model.clear()
+    fun changeJokeStatus() = viewModelScope.launch(dispatcher) {
+        if (communication.isState(INITIAL))
+            interactor.changeFavourites().to().show(communication)
     }
 
-    fun chooseFavourites(favourites: Boolean) {
+    fun chooseFavourites(favourites: Boolean) =
+        interactor.getFavouriteJokes(favourites)
 
-    }
+    fun observe(owner: LifecycleOwner, observer: Observer<State>) =
+        communication.observe(owner, observer)
 
 }
