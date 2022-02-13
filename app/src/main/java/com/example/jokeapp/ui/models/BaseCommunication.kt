@@ -4,22 +4,18 @@ import androidx.lifecycle.MutableLiveData
 import com.example.jokeapp.ui.state.State
 import java.util.*
 
-
 class BaseCommunication : Communication {
 
     private val liveData = MutableLiveData<State>()
 
-
-    override fun isState(typo: Int): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun isState(typo: Int): Boolean = liveData.value?.isType(type) ?: false
 
     override fun showState(state: State) {
-        TODO("Not yet implemented")
+        liveData.value = state
     }
 
-    override fun observe(owner: LifecyleOwner, observer: Observer<State>) =
-        livedata
+    override fun observe(owner: LifecyсleOwner, observer: Observer<State>) =
+        livedata.observe(owner, observer)
 
 
 }

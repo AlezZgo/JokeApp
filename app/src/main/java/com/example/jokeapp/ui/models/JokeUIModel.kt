@@ -8,6 +8,7 @@ abstract class JokeUIModel(private val text: String, private val punchline: Stri
     protected open fun text() = "$text\n$punchline"
     @DrawableRes
     protected abstract fun getIconResId(): Int
+
     open fun show(communication: Communication) =
         communication.showState(
             State.Initial(text(),getIconResId())
