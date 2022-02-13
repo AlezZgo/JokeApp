@@ -17,6 +17,6 @@ data class JokeServerModel(
     @SerializedName("lang") val lang: String,
 ) : Mapper<JokeDataModel> {
 
-    override fun to() =  JokeDataModel(id,text?:"another json",punchline?:"another json")
+    override fun to() = JokeDataModel(id, text ?: "another json", punchline ?: "another json")
 
 }

@@ -12,7 +12,6 @@ import com.example.jokeapp.data.mapper.JokeSuccessMapper
 import com.example.jokeapp.data.repository.BaseJokeRepository
 import com.example.jokeapp.domain.BaseJokeInteractor
 import com.example.jokeapp.domain.JokeFailureFactory
-import com.example.jokeapp.models.TestModel
 import com.example.jokeapp.ui.BaseViewModel
 import com.example.jokeapp.ui.models.BaseCommunication
 import io.realm.Realm
@@ -31,17 +30,16 @@ class JokeApp : Application() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val cacheDataSource = BaseCachedDataSource(BaseRealmProvider(),JokeRealmMapper())
+        val cacheDataSource = BaseCachedDataSource(BaseRealmProvider(), JokeRealmMapper())
         val resourceManager = BaseResourceManager(this)
         val cloudDataSource = BaseCloudDataSource(retrofit.create(JokeService::class.java))
-        val repository = BaseJokeRepository(cacheDataSource,cloudDataSource,BaseCachedJoke())
-        val interactor = BaseJokeInteractor(repository, JokeFailureFactory(resourceManager),JokeSuccessMapper())
+        val repository = BaseJokeRepository(cacheDataSource, cloudDataSource, BaseCachedJoke())
+        val interactor =
+            BaseJokeInteractor(repository, JokeFailureFactory(resourceManager), JokeSuccessMapper())
 
 
-        viewModel = BaseViewModel(interactor,BaseCommunication())
+        viewModel = BaseViewModel(interactor, BaseCommunication())
     }
-
-
 
 
 }

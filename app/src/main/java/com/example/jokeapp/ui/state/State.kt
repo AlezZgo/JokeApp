@@ -22,16 +22,16 @@ sealed class State {
         progress: ShowView,
         button: EnableView,
         textView: ShowText,
-        imageButton: ShowImage
-    ){
-        show(progress,button)
+        imageButton: ShowImage,
+    ) {
+        show(progress, button)
         show(textView, imageButton)
     }
 
-    protected open fun show(progress: ShowView, button: EnableView){}
-    protected open fun show(textView: ShowText, imageButton: ShowImage){}
+    protected open fun show(progress: ShowView, button: EnableView) {}
+    protected open fun show(textView: ShowText, imageButton: ShowImage) {}
 
-    object Progress : State(){
+    object Progress : State() {
         override val type = PROGRESS
 
         override fun show(progress: ShowView, button: EnableView) {

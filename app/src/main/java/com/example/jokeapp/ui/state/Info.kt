@@ -18,10 +18,11 @@ abstract class Info(private val text: String, @DrawableRes private val id: Int) 
     }
 
 }
-class Initial(text:String, @DrawableRes private val id: Int) : Info(text, id){
+
+class Initial(text: String, @DrawableRes private val id: Int) : Info(text, id) {
     override val type = INITIAL
 }
 
-class Failed(text:String, @DrawableRes private val id: Int) : Info(text, id){
+class Failed(text: String, @DrawableRes private val id: Int) : Info(text, id) {
     override val type = FAILED
 }

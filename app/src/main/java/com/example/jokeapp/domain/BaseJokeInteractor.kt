@@ -1,17 +1,16 @@
 package com.example.jokeapp.domain
 
 import com.example.jokeapp.data.mapper.JokeDataModelMapper
-import java.lang.Exception
 
 class BaseJokeInteractor(
     private val repository: JokeRepository,
     private val jokeFailureHandler: JokeFailureHandler,
-    private val mapper: JokeDataModelMapper<Joke.Success>
+    private val mapper: JokeDataModelMapper<Joke.Success>,
 ) : JokeInteractor {
     override suspend fun getJoke(): Joke {
-        return try{
+        return try {
             repository.getJoke().map(mapper)
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Joke.Failed(jokeFailureHandler.handle(e))
         }
     }
@@ -19,12 +18,11 @@ class BaseJokeInteractor(
     override suspend fun changeFavourites(): Joke {
         return try {
             repository.changeJokeStatus().map(mapper)
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Joke.Failed(jokeFailureHandler.handle(e))
         }
     }
 
-    override fun getFavouriteJokes(favourites: Boolean)
-        = repository.chooseDataSource(favourites)
+    override fun getFavouriteJokes(favourites: Boolean) = repository.chooseDataSource(favourites)
 
 }
