@@ -1,4 +1,5 @@
 package com.example.jokeapp.ui.showInterface
 
-interface ShowText {
-}
+import com.example.jokeapp.core.Show
+
+interface ShowText : Show<String>

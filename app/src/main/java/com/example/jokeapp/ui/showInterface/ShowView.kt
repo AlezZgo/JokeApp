@@ -1,4 +1,5 @@
 package com.example.jokeapp.ui.showInterface
 
-class ShowView {
-}
+import com.example.jokeapp.core.Show
+
+interface ShowView: Show<Boolean>

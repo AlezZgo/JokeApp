@@ -2,21 +2,22 @@ package com.example.jokeapp.ui.customView
 
 import android.content.Context
 import android.util.AttributeSet
-import com.example.jokeapp.ui.showInterface.EnableView
-import com.example.jokeapp.ui.showInterface.ShowText
+import android.view.View
+import android.widget.ProgressBar
+import com.example.jokeapp.ui.showInterface.ShowView
 
-class CorrectButton : androidx.appcompat.widget.AppCompatButton, EnableView {
+class CorrectProgress :  ProgressBar, ShowView {
 
     constructor(context: Context): super(context)
     constructor(context: Context, attrs: AttributeSet): super(context,attrs)
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int): super(
-        context,
-        attrs,
-        defStyleAttr
+    context,
+    attrs,
+    defStyleAttr
     )
 
 
-    override fun enable(enable: Boolean) {
-        isEnabled = enable
+    override fun show(arg: Boolean) {
+        visibility = if(arg) View.VISIBLE else View.INVISIBLE
     }
 }

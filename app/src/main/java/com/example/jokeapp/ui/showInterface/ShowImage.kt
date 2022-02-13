@@ -1,4 +1,6 @@
 package com.example.jokeapp.ui.showInterface
 
-interface ShowImage {
-}
+import android.media.Image
+import com.example.jokeapp.core.Show
+
+interface ShowImage : Show<Image>
