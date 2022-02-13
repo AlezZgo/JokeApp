@@ -7,7 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.jokeapp.JokeApp
 import com.example.jokeapp.R
 import com.example.jokeapp.ViewModel
-import com.example.jokeapp.models.DataCallBack
+import com.example.jokeapp.ui.customView.CorrectButton
+import com.example.jokeapp.ui.customView.CorrectImageButton
+import com.example.jokeapp.ui.customView.CorrectProgress
+import com.example.jokeapp.ui.customView.CorrectTextView
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,48 +20,31 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewModel = (application as JokeApp).viewModel
-        val button = findViewById<Button>(R.id.btn)
-        val progressBar = findViewById<View>(R.id.pb)
-        val textView = findViewById<TextView>(R.id.tv)
-        val changeButton = findViewById<ImageButton>(R.id.changeButton)
+        val button = findViewById<CorrectButton>(R.id.btn)
+        val progressBar = findViewById<CorrectProgress>(R.id.pb)
+        val textView = findViewById<CorrectTextView>(R.id.tv)
+        val checkBox = findViewById<CheckBox>(R.id.checkBox)
+        val changeButton = findViewById<CorrectImageButton>(R.id.changeButton)
         progressBar.visibility = View.INVISIBLE
 
-        button.setOnClickListener {
-            button.isEnabled = false
-            progressBar.visibility = View.VISIBLE
-            viewModel.getJoke()
+        checkBox.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.chooseFavourites(isChecked)
         }
 
         changeButton.setOnClickListener {
             viewModel.changeJokeStatus()
         }
 
-        viewModel.init(object : DataCallBack {
-            override fun provideText(text: String) = runOnUiThread {
-                button.isEnabled = true
-                progressBar.visibility = View.INVISIBLE
-                textView.text = text
-            }
+        button.setOnClickListener {
+            viewModel.getJoke()
+        }
 
-            override fun provideIconRes(id: Int) {
-                runOnUiThread {
-                    iconView.setImageResource(id)
-                }
-            }
-
-        })
-
-        val checkBox = findViewById<CheckBox>(R.id.checkBox)
-        checkBox.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.chooseFavourites(isChecked)
+        viewModel.observe(this) { state ->
+            state.show(progressBar, button, textView, changeButton)
         }
 
 
     }
 
-    override fun onDestroy() {
-        viewModel.clear()
-        super.onDestroy()
-    }
 }
 

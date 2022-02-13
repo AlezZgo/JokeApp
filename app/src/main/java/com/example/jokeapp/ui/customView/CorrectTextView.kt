@@ -15,7 +15,7 @@ class CorrectTextView : androidx.appcompat.widget.AppCompatTextView, ShowText {
     )
 
 
-    override fun show(arg: String) {
+    override fun show(arg: Int) {
         text = arg
     }
 }

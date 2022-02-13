@@ -17,7 +17,7 @@ class CorrectProgress :  ProgressBar, ShowView {
     )
 
 
-    override fun show(arg: Boolean) {
+    override fun show(arg: Int) {
         visibility = if(arg) View.VISIBLE else View.INVISIBLE
     }
 }

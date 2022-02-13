@@ -3,7 +3,6 @@ package com.example.jokeapp.ui.customView
 import android.content.Context
 import android.util.AttributeSet
 import com.example.jokeapp.ui.showInterface.ShowImage
-import com.example.jokeapp.ui.showInterface.ShowText
 
 class CorrectImageButton : androidx.appcompat.widget.AppCompatImageButton, ShowImage {
 
@@ -16,7 +15,7 @@ class CorrectImageButton : androidx.appcompat.widget.AppCompatImageButton, ShowI
     )
 
 
-    override fun show(arg: String) {
+    override fun show(arg: Int) {
         setImageResource(arg)
     }
 }
